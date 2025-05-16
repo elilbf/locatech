@@ -2,6 +2,9 @@ package br.com.fiap.locatech.locatech.controllers;
 
 import br.com.fiap.locatech.locatech.entities.Veiculo;
 import br.com.fiap.locatech.locatech.services.VeiculoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -21,6 +24,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/veiculos")
+@Tag(name = "Veículo", description = "Operações relacionadas aos veículos")
 public class VeiculoController {
 
     private static final Logger logger = LoggerFactory.getLogger(VeiculoController.class);
@@ -32,6 +36,10 @@ public class VeiculoController {
     }
 
     // http://localhost:8080/veiculos?page=1&size=10
+    @Operation(summary = "Busca todos os veículos", description = "Busca todos os veículos paginados",
+    responses = {
+        @ApiResponse(responseCode = "200", description = "Veículos encontrados com sucesso")
+    })
     @GetMapping
     public ResponseEntity<List<Veiculo>> findAllVeiculos(@RequestParam("page") int page,
                                                          @RequestParam("size") int size) {
